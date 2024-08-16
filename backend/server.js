@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../dependencias.env' });
+require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
