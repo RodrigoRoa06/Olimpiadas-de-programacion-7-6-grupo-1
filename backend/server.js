@@ -3,7 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/authRoutes');
+const sequelize = require('./config/database'); // Importar la configuración de la base de datos
 require('./config/passport');  // Configuración de Passport
 
 const app = express();
@@ -26,9 +27,17 @@ app.get('/', (req, res) => {
   res.send('Inicio');
 });
 
-// Iniciar servidor
+// Verificación de la conexión a la base de datos e inicio del servidor
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conexión a la base de datos establecida con éxito.');
+
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('No se pudo conectar a la base de datos:', err);
+  });

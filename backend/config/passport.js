@@ -2,7 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
-const db = require('../config/db'); // Configuración de la conexión a la base de datos
+const db = require('./database'); // Configuración de la conexión a la base de datos
 
 // Estrategia de autenticación local
 passport.use(new LocalStrategy({
